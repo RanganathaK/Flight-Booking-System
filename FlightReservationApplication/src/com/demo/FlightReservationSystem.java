@@ -1,22 +1,23 @@
 package com.demo;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class FlightReservationSystem {
 
-	FlightDetails flightDetails=new FlightDetails();
+	FlightDetails flightDetails = new FlightDetails();
 	UserService userService = new UserService();
-
+	Scanner sc = new Scanner(System.in);
+	int choice;
 
 	public void run() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("********************LOGIN*********************");
-        login(sc);
+
+		// User Login
+		userService.verifyUser(); // check the user is already exist in the system
 		while (true) {
 			displayMenu();
 
-			int choice = sc.nextInt();
-
+			choice = sc.nextInt();
 
 			switch (choice) {
 
@@ -24,27 +25,16 @@ public class FlightReservationSystem {
 				searchFlight(sc);
 				break;
 			case 2:
-				makeReservation(sc);
-				break;
-			case 3:
 				viewBookingDetails();
 				break;
-			case 4:
+			case 3:
 				System.out.println("Exiting the system..");
 				System.exit(0);
+
 			default:
 				System.out.println("Invalid choice.");
 			}
 		}
-	}
-
-	public void login(Scanner sc) {
-		System.out.println("Enter UserName: ");
-		String userName = sc.next();
-		System.out.println("Enter PassWord: ");
-		String passWord = sc.next();
-		userService.verifyUser(userName, passWord);
-
 	}
 
 	private void searchFlight(Scanner sc) {
@@ -52,29 +42,45 @@ public class FlightReservationSystem {
 		String source = sc.next();
 		System.out.println("To:");
 		String destination = sc.next();
+		System.out.println("Date of Journey(dd/mm/yyyy):");
+		String date = sc.next();
+		
 
-		flightDetails.displayFlights(source, destination);
-
-	}
-
-	private void viewBookingDetails() {
-
-	}
-
-	private void makeReservation(Scanner sc) {
+		flightDetails.displayFlights(source, destination, date);
 
 	}
 
-	private void displayMenu() {
+	public void viewBookingDetails() {
+		int ticketId;
+		List<Ticket> bookedTickets = MyBookings.getAllBookedTickets();
+
+		if (bookedTickets.isEmpty()) {
+			System.out.println("No Records Found...");
+		} else {
+			System.out.println("Booked Tickets:");
+			for (Ticket ticket : bookedTickets) {
+				System.out.println(ticket);
+			}
+			System.out.println("1.Cancel Ticket");
+			System.out.println("2.Exit");
+			choice = sc.nextInt();
+			if (choice == 1) {
+				System.out.println("Enter TicketID to cancel:");
+				ticketId = sc.nextInt();
+				MyBookings.cancelTicket(ticketId);
+			}
+		}
+
+	}
+
+	public void displayMenu() {
 
 		System.out.println("1. Search Flights");
-		System.out.println("2. Make Reservation");
-		System.out.println("3. View Booking Details");
-		System.out.println("4. Exit");
+		System.out.println("2. View Booking Details");
+		System.out.println("3. Exit");
 		System.out.print("Enter your choice: ");
 	}
 
-	
 	public static void main(String[] args) {
 		FlightReservationSystem system = new FlightReservationSystem();
 		system.run();

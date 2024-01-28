@@ -1,6 +1,5 @@
 package com.demo;
 
-import java.util.Date;
 
 public class Passengers {
 
@@ -12,7 +11,7 @@ public class Passengers {
 	
 	String dateOfBirth;
 	
-	String mobileNo;
+	long mobileNo;
 
 	public String getName() {
 		return name;
@@ -46,11 +45,20 @@ public class Passengers {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getMobileNo() {
+	public Passengers(String name, int age, String gender, long mobileNo, String dateOfBirth) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.mobileNo = mobileNo;
+	}
+
+	public long getMobileNo() {
 		return mobileNo;
 	}
 
-	public void setMobileNo(String mobileNo) {
+	public void setMobileNo(long mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 	

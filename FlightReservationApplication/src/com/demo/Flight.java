@@ -12,16 +12,40 @@ public class Flight {
 	private String timeToDeparture;
 	
 	private String timeToReach;
-    
 	
-	public Flight(int flightId, String flightName, String source, String destination, String timeToDeparture, String timeToReach) {
+	private int availableSeats;
+    
+    private String dateOfJourney;
+
+	public int getAvailableSeats() {
+		return availableSeats;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
+	}
+
+	
+
+	public Flight(int flightId, String flightName, String source, String destination, String dateOfJourney,String timeToDeparture,
+			String timeToReach, int availableSeats) {
 		super();
 		this.flightId = flightId;
 		this.flightName = flightName;
 		this.source = source;
 		this.destination = destination;
 		this.timeToDeparture = timeToDeparture;
-		this.timeToReach=timeToReach;
+		this.timeToReach = timeToReach;
+		this.availableSeats = availableSeats;
+		this.dateOfJourney=dateOfJourney;
+	}
+
+	public String getDateOfJourney() {
+		return dateOfJourney;
+	}
+
+	public void setDateOfJourney(String dateOfJourney) {
+		this.dateOfJourney = dateOfJourney;
 	}
 
 	public String getTimeToDeparture() {

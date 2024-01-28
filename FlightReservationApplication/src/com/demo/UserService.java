@@ -9,7 +9,7 @@ public class UserService {
     private Scanner sc = new Scanner(System.in);
     
 
-    public void verifyUser(String userName, String passWord) {
+    public void verifyUser() {
         // Create and add some user entities to the ArrayList
         User user1 = new User("Ana", "Ana@123", "9982156342", "ana@gmail.com");
         User user2 = new User("Adam", "Adam@456", "9876543210", "adam@gmail.com");
@@ -18,6 +18,11 @@ public class UserService {
         listOfUsers.add(user2);
 
         boolean found = false;
+        System.out.println("********************LOGIN*********************");
+        System.out.print("Enter UserName: ");
+		String userName = sc.next();
+		System.out.print("Enter PassWord: ");
+		String passWord = sc.next();
 
         for (User user : listOfUsers) {
             if (user.getUserName().equals(userName)) {
@@ -26,37 +31,43 @@ public class UserService {
 
                 if (user.getPassWord().equals(passWord)) {
                     System.out.println("Login successful!"+ currentUser.getUserName());
-                    //frs.run();
+
                 } else {
                     System.out.println("Incorrect password/username..");
+                    System.exit(0);
                 }
-                break;
+               
             }
         }
+        //if user is not found in the listofuser 
+		if (!found) {
+			System.out.println("User not found. Do you want to register? (yes/no)");
+			String registerChoice = sc.next();
+			if (registerChoice.equalsIgnoreCase("yes")) {
+				addUser();
+			} else {
+				System.out.println("Login failed.. User not registered.");
+			}
 
-        if (!found) {
-            addUser();
-        }
-       // getListOfUsers();
+		}
         
     }
 
     private void addUser() {
-        System.out.println("User doesn't exist. Need to register.");
-        System.out.println("Enter UserName:");
+        System.out.print("Enter UserName:");
         String userName = sc.next();
-        System.out.println("Enter Password:");
+        System.out.print("Enter Password:");
         String passWord = sc.next();
-        System.out.println("Enter Mobile No:");
+        System.out.print("Enter Mobile No:");
         String mobileNo = sc.next();
-        System.out.println("Enter Email ID:");
+        System.out.print("Enter Email ID:");
         String emailId = sc.next();
 
         User newUser = new User(userName, passWord, mobileNo, emailId);
         listOfUsers.add(newUser);
 
         System.out.println("User added successfully!");
-       verifyUser(userName, passWord);
+       verifyUser();
     }
 
 }
